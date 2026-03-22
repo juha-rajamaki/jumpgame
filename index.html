@@ -293,7 +293,7 @@ function loadSettings() {
             settings.sound = raw.sound !== false;
             settings.vibration = raw.vibration !== false;
             settings.darkMode = !!raw.darkMode;
-            if (typeof raw.volume === 'number') settings.volume = raw.volume;
+            if (typeof raw.volume === 'number') settings.volume = clamp(raw.volume, 0, 1);
         }
     } catch (_) {}
 }
@@ -475,7 +475,8 @@ function drawParticles() {
 function loadAttempts() {
     try {
         const raw = JSON.parse(localStorage.getItem('ph_att'));
-        if (raw && typeof raw.cur === 'number' && typeof raw.total === 'number') return raw;
+        if (raw && typeof raw.cur === 'number' && typeof raw.total === 'number'
+            && raw.cur >= 0 && raw.total >= 0 && raw.cur <= 1e6 && raw.total <= 1e6) return raw;
     } catch (_) {}
     return { cur: 0, total: 0 };
 }
@@ -1480,7 +1481,7 @@ settingsHandler(togDark, function() {
 var volPreviewTimer = null;
 volSlider.addEventListener('input', function(e) {
     e.stopPropagation();
-    settings.volume = parseInt(volSlider.value, 10) / 100;
+    settings.volume = clamp(parseInt(volSlider.value, 10) / 100, 0, 1);
     saveSettings();
     if (masterGain && audioCtx && settings.sound) {
         masterGain.gain.setTargetAtTime(settings.volume, audioCtx.currentTime, 0.02);
@@ -1513,7 +1514,7 @@ document.addEventListener('visibilitychange', function() {
         if (audioCtx && audioCtx.state === 'running') audioCtx.suspend();
     } else {
         lastTS = 0;
-        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        if (audioCtx && audioCtx.state === 'suspended' && settings.sound) audioCtx.resume();
         rafHandle = requestAnimationFrame(loop);
     }
 });
