@@ -376,6 +376,119 @@ let hudFade, winOpen, attempts;
 let settingsOpen = false;
 let gameTime = 0;
 
+// ── Birds ──
+let birds = [];
+let birdTimer = 0;
+
+function spawnBird() {
+    const fromLeft = Math.random() > 0.5;
+    const y = rand(H * 0.15, H * 0.55);
+    const speed = rand(120, 220) * S;
+    birds.push({
+        x: fromLeft ? -30 * S : W + cam.x + 30 * S,
+        y: y,
+        vx: fromLeft ? speed : -speed,
+        wingT: Math.random() * Math.PI * 2,
+        size: rand(8, 14) * S,
+        hit: false,
+    });
+}
+
+function updateBirds(dt) {
+    birdTimer -= dt;
+    if (birdTimer <= 0 && state !== 'gameover') {
+        // Spawn more frequently as game progresses
+        const freq = Math.max(2, 8 - (TOTAL_JUMPS - remaining) * 0.1);
+        birdTimer = rand(freq, freq + 4);
+        spawnBird();
+    }
+
+    const cw = THEME.char.w * S;
+    const ch = THEME.char.h * S;
+    const pcx = player.x + cw / 2;
+    const pcy = player.y + ch / 2;
+
+    for (let i = birds.length - 1; i >= 0; i--) {
+        const b = birds[i];
+        b.x += b.vx * dt;
+        b.wingT += dt * 8;
+
+        // Collision with player (only when jumping)
+        if (!b.hit && (state === 'jumping' || state === 'falling')) {
+            const dx = (b.x - cam.x) - (pcx - cam.x);
+            const dy = b.y - pcy;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < b.size + cw * 0.4) {
+                b.hit = true;
+                // Knock the player — push them in bird's direction + upward
+                player.vy = Math.min(player.vy, -150 * S);
+                player.vx += (b.vx > 0 ? 1 : -1) * 80 * S;
+                // Bird tumbles away
+                b.vx *= 0.3;
+                b.vy = -200 * S;
+                vib(30);
+                addFloat('BONK!', pcx, pcy - 15 * S, '#f59e0b', 14, 0.8);
+                noiseBurst(0.08, 0.1, 2000, 'bandpass');
+            }
+        }
+
+        // Tumble hit birds
+        if (b.hit) {
+            b.y += (b.vy || 0) * dt;
+            b.vy = (b.vy || 0) + 600 * S * dt;
+        }
+
+        // Remove off-screen birds
+        const screenX = b.x - cam.x;
+        if (screenX < -80 * S || screenX > W + 80 * S || b.y > H + 50 * S) {
+            birds[i] = birds[birds.length - 1];
+            birds.pop();
+        }
+    }
+}
+
+function drawBirds() {
+    for (const b of birds) {
+        const sx = b.x - cam.x;
+        const wingFlap = Math.sin(b.wingT) * 0.6;
+        ctx.save();
+        ctx.translate(sx, b.y);
+        if (b.hit) ctx.rotate(gameTime * 8);
+        if (b.vx < 0) ctx.scale(-1, 1);
+
+        const sz = b.size;
+        // Body
+        ctx.fillStyle = settings.darkMode ? '#94a3b8' : '#475569';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, sz * 0.5, sz * 0.3, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Wings
+        ctx.fillStyle = settings.darkMode ? '#64748b' : '#334155';
+        ctx.beginPath();
+        ctx.moveTo(-sz * 0.1, -sz * 0.05);
+        ctx.quadraticCurveTo(0, -sz * (0.5 + wingFlap * 0.4), sz * 0.3, -sz * 0.1);
+        ctx.lineTo(sz * 0.1, 0);
+        ctx.fill();
+
+        // Beak
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.moveTo(sz * 0.5, -sz * 0.05);
+        ctx.lineTo(sz * 0.75, 0);
+        ctx.lineTo(sz * 0.5, sz * 0.05);
+        ctx.fill();
+
+        // Eye
+        ctx.fillStyle = '#fff';
+        ctx.beginPath(); ctx.arc(sz * 0.25, -sz * 0.08, sz * 0.1, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#0f172a';
+        ctx.beginPath(); ctx.arc(sz * 0.28, -sz * 0.07, sz * 0.05, 0, Math.PI * 2); ctx.fill();
+
+        ctx.restore();
+    }
+}
+
 // ── Particles ──
 const POOL_SIZE = 80;
 let particles = [];
@@ -843,6 +956,7 @@ function init() {
     missedJump = false;
     hudFade = 1; winOpen = false;
     smileT = 0; wowT = 0; wowDir = 1; shakeT = 0; inputBuf = false; gameTime = 0;
+    birds = []; birdTimer = rand(4, 8);
     floats = []; ringPulse = null;
     initParticles();
 
@@ -871,6 +985,7 @@ function update(dt) {
 
     gameTime += dt;
     updateParticles(dt);
+    updateBirds(dt);
 
     if (state === 'gameover') { if (hudFade > 0) hudFade = Math.max(0, hudFade - dt * 10); return; }
 
@@ -1118,6 +1233,7 @@ function render() {
 
     drawRing();
     drawParticles();
+    drawBirds();
     drawChar();
     drawPowerBar();
     drawHUD();
