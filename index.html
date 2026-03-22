@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>Platform Hopper</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none';">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; touch-action: none; }
 html, body {
@@ -183,7 +184,14 @@ let missedJump, smileT, wowT, wowDir, shakeT, inputBuf;
 let hudFade, winOpen, attempts;
 
 // Load attempts
-try { attempts = JSON.parse(localStorage.getItem('ph_att')) || { cur: 0, total: 0 }; } catch(_) { attempts = { cur: 0, total: 0 }; }
+function loadAttempts() {
+    try {
+        const raw = JSON.parse(localStorage.getItem('ph_att'));
+        if (raw && typeof raw.cur === 'number' && typeof raw.total === 'number') return raw;
+    } catch (_) {}
+    return { cur: 0, total: 0 };
+}
+attempts = loadAttempts();
 function saveAtt() { try { localStorage.setItem('ph_att', JSON.stringify(attempts)); } catch(_) {} }
 
 // ── Audio ──
@@ -451,7 +459,7 @@ function onLand(plat, idx) {
         const pColor = isLife ? '#f59e0b' : THEME.ui.perfectColor;
         ringPulse = { x: cx, y: player.y + ch / 2, color: pColor, age: 0, dur: 0.45, maxR: 40 * S };
         if (isLife) {
-            lives++; streak = 0;
+            lives = Math.min(lives + 1, 9); streak = 0;
             addFloat('+1 LIFE', cx, plat.y - 30 * S, '#f59e0b', 16, 1.0);
             sfxLife();
         } else {
@@ -670,7 +678,11 @@ function showGameOver() {
     const done = TOTAL_JUMPS - remaining;
     mAvatar.style.display = 'block'; setFace('sad');
     mTitle.textContent = 'Game Over';
-    mSub.innerHTML = 'You made it<br>' + done + ' of ' + TOTAL_JUMPS + ' jumps';
+    mSub.replaceChildren(
+        document.createTextNode('You made it'),
+        document.createElement('br'),
+        document.createTextNode(done + ' of ' + TOTAL_JUMPS + ' jumps')
+    );
     mDetail.textContent = 'Attempt #' + attempts.cur;
     mDetail.style.display = '';
     mBtn.textContent = 'Retry';
@@ -763,17 +775,30 @@ window.addEventListener('resize', resize);
 window.addEventListener('orientationchange', function() { setTimeout(resize, 100); });
 
 // ── Game loop ──
+let rafHandle = null;
+
 function loop(ts) {
     if (!lastTS) lastTS = ts;
     const dt = (ts - lastTS) / 1000;
     lastTS = ts;
     update(dt);
     render();
-    requestAnimationFrame(loop);
+    rafHandle = requestAnimationFrame(loop);
 }
 
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        if (rafHandle) { cancelAnimationFrame(rafHandle); rafHandle = null; }
+        if (audioCtx && audioCtx.state === 'running') audioCtx.suspend();
+    } else {
+        lastTS = 0;
+        if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        rafHandle = requestAnimationFrame(loop);
+    }
+});
+
 init();
-requestAnimationFrame(loop);
+rafHandle = requestAnimationFrame(loop);
 </script>
 </body>
 </html>
