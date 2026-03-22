@@ -1124,6 +1124,7 @@ function render() {
     drawHUD();
     drawFloats();
     if (firstPlay && state === 'idle') drawHint();
+    drawCredit();
 }
 
 function drawPlat(p) {
@@ -1301,6 +1302,16 @@ function drawHint() {
     ctx.font = fonts.hint; ctx.fillStyle = THEME.ui.hintColor;
     const msg = hasKB ? 'Hold spacebar, then release to jump' : 'Hold and release to jump';
     ctx.fillText(msg, player.x + THEME.char.w * S / 2 - cam.x, player.y - 18 * S);
+}
+
+function drawCredit() {
+    ctx.save();
+    ctx.globalAlpha = 0.35;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+    ctx.font = '500 ' + (9 * S) + "px 'SF Pro Display', -apple-system, system-ui, sans-serif";
+    ctx.fillStyle = THEME.ui.dimColor;
+    ctx.fillText('Inspired by 100jumps.org', W / 2, H - 8 * S);
+    ctx.restore();
 }
 
 function addFloat(text, x, y, color, size, dur) {
