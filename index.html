@@ -33,7 +33,7 @@ canvas { display: block; width: 100%; height: 100%; }
 .card {
     background: #fff;
     border-radius: 22px;
-    border: 1px solid rgba(79, 70, 229, 0.15);
+    border: 1px solid rgba(232, 93, 58, 0.15);
     padding: 32px 26px 26px;
     text-align: center;
     max-width: 320px; width: 85%;
@@ -59,14 +59,14 @@ canvas { display: block; width: 100%; height: 100%; }
     cursor: pointer; outline: none;
     -webkit-tap-highlight-color: transparent;
     transition: transform 0.1s;
-    background: #4f46e5; color: #fff;
+    background: #e85d3a; color: #fff;
 }
 .btn:active { transform: scale(0.96); }
 .avatar {
     width: 64px; height: 64px;
     margin: -48px auto 10px;
 }
-.avatar svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 10px rgba(79,70,229,0.25)); }
+.avatar svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 10px rgba(232,93,58,0.3)); }
 .detail {
     font-size: 13px; color: #9AA8BD;
     margin-bottom: 18px !important; line-height: 1.4;
@@ -116,7 +116,7 @@ canvas { display: block; width: 100%; height: 100%; }
     -webkit-tap-highlight-color: transparent;
     flex-shrink: 0;
 }
-.toggle.on { background: #4f46e5; }
+.toggle.on { background: #e85d3a; }
 .toggle::after {
     content: '';
     position: absolute;
@@ -142,13 +142,13 @@ canvas { display: block; width: 100%; height: 100%; }
 .vol-slider::-webkit-slider-thumb {
     -webkit-appearance: none; appearance: none;
     width: 20px; height: 20px;
-    background: #4f46e5; border-radius: 50%;
+    background: #e85d3a; border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 1px 4px rgba(0,0,0,0.15);
 }
 .vol-slider::-moz-range-thumb {
     width: 20px; height: 20px;
-    background: #4f46e5; border: none; border-radius: 50%;
+    background: #e85d3a; border: none; border-radius: 50%;
     cursor: pointer;
 }
 
@@ -162,17 +162,17 @@ body.dark { background: #0f172a; }
 .dark .card h2 { color: #e2e8f0; }
 .dark .card p { color: #94a3b8; }
 .dark .detail { color: #64748b; }
-.dark .btn { background: #818cf8; }
+.dark .btn { background: #f4845f; }
 .dark .toggle-label { color: #cbd5e1; }
 .dark .toggle { background: #374151; }
-.dark .toggle.on { background: #818cf8; }
+.dark .toggle.on { background: #f4845f; }
 .dark .toggle::after { background: #cbd5e1; }
 .dark .toggle.on::after { background: #fff; }
 .dark .toggle-row + .toggle-row,
 .dark .slider-row { border-top-color: #334155; }
 .dark .vol-slider { background: #374151; }
-.dark .vol-slider::-webkit-slider-thumb { background: #818cf8; }
-.dark .vol-slider::-moz-range-thumb { background: #818cf8; }
+.dark .vol-slider::-webkit-slider-thumb { background: #f4845f; }
+.dark .vol-slider::-moz-range-thumb { background: #f4845f; }
 .dark #settings-btn svg { fill: #64748b; }
 </style>
 </head>
@@ -188,10 +188,6 @@ body.dark { background: #0f172a; }
             <div class="toggle-row">
                 <span class="toggle-label">Sound</span>
                 <button class="toggle on" id="tog-sound" aria-label="Toggle sound"></button>
-            </div>
-            <div class="toggle-row">
-                <span class="toggle-label">Music</span>
-                <button class="toggle" id="tog-music" aria-label="Toggle music"></button>
             </div>
             <div class="slider-row" id="vol-row">
                 <span class="toggle-label">Volume</span>
@@ -212,12 +208,12 @@ body.dark { background: #0f172a; }
         <div class="card">
             <div class="avatar" id="modal-avatar">
                 <svg viewBox="0 0 60 60">
-                    <rect width="60" height="60" rx="12" fill="#4f46e5"/>
+                    <rect width="60" height="60" rx="12" fill="#e85d3a"/>
                     <circle cx="18" cy="25" r="8" fill="#fff"/>
                     <circle cx="42" cy="25" r="8" fill="#fff"/>
-                    <circle id="av-pupil-l" cx="18" cy="25" r="4" fill="#312e81"/>
-                    <circle id="av-pupil-r" cx="42" cy="25" r="4" fill="#312e81"/>
-                    <path id="av-mouth" d="M22 42 Q30 42 38 42" stroke="#312e81" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                    <circle id="av-pupil-l" cx="18" cy="25" r="4" fill="#6b2010"/>
+                    <circle id="av-pupil-r" cx="42" cy="25" r="4" fill="#6b2010"/>
+                    <path id="av-mouth" d="M22 42 Q30 42 38 42" stroke="#6b2010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
                 </svg>
             </div>
             <h2 id="mt"></h2>
@@ -237,7 +233,7 @@ body.dark { background: #0f172a; }
 const THEME_LIGHT = {
     bg: '#E8F0FE',
     bgGrad: ['#E8F0FE', '#d0dff5'],
-    char: { w: 26, h: 26, color: '#4f46e5', eyeWhite: '#fff', pupil: '#312e81' },
+    char: { w: 26, h: 26, color: '#e85d3a', eyeWhite: '#fff', pupil: '#6b2010' },
     plat: { height: 7, color: '#8B9CB6', startW: 110 },
     scene: {
         mountain1: 'rgba(180,195,220,0.4)',
@@ -257,7 +253,7 @@ const THEME_LIGHT = {
 const THEME_DARK = {
     bg: '#0f172a',
     bgGrad: ['#0f172a', '#1a2744'],
-    char: { w: 26, h: 26, color: '#818cf8', eyeWhite: '#e2e8f0', pupil: '#1e1b4b' },
+    char: { w: 26, h: 26, color: '#f4845f', eyeWhite: '#e2e8f0', pupil: '#4a1a08' },
     plat: { height: 7, color: '#475569', startW: 110 },
     scene: {
         mountain1: 'rgba(30,50,80,0.5)',
@@ -289,13 +285,12 @@ function applyTheme(dark) {
 }
 
 // ── Settings (persisted) ──
-let settings = { sound: true, music: false, vibration: true, darkMode: false, volume: 0.8 };
+let settings = { sound: true, vibration: true, darkMode: false, volume: 0.8 };
 function loadSettings() {
     try {
         const raw = JSON.parse(localStorage.getItem('ph_settings'));
         if (raw) {
             settings.sound = raw.sound !== false;
-            settings.music = !!raw.music;
             settings.vibration = raw.vibration !== false;
             settings.darkMode = !!raw.darkMode;
             if (typeof raw.volume === 'number') settings.volume = raw.volume;
@@ -375,6 +370,7 @@ let completed, firstPlay, floats, ringPulse, lastTS, fadeOutIdx;
 let missedJump, smileT, wowT, wowDir, shakeT, inputBuf;
 let hudFade, winOpen, attempts;
 let settingsOpen = false;
+let gameTime = 0;
 
 // ── Particles ──
 const POOL_SIZE = 80;
@@ -497,7 +493,6 @@ function initAudio() {
         masterGain = audioCtx.createGain();
         masterGain.gain.value = settings.sound ? settings.volume : 0;
         masterGain.connect(audioCtx.destination);
-        if (settings.music) startMusic();
     } catch(_) {}
 }
 
@@ -516,129 +511,215 @@ function tone(freq, type, dur, vol, delay) {
 
 function vib(p) { if (settings.vibration && navigator.vibrate) navigator.vibrate(p); }
 
-function sfxJump() {
-    vib(10);
+// Helper: create noise burst (used for impact/whoosh sounds)
+function noiseBurst(dur, vol, filterFreq, filterType) {
     if (!audioCtx || !settings.sound) return;
     const t = audioCtx.currentTime;
+    const bufSize = audioCtx.sampleRate * dur;
+    const buf = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+    const src = audioCtx.createBufferSource();
+    src.buffer = buf;
+    const flt = audioCtx.createBiquadFilter();
+    flt.type = filterType || 'lowpass';
+    flt.frequency.value = filterFreq || 2000;
+    const g = audioCtx.createGain();
+    g.gain.setValueAtTime(vol, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    src.connect(flt); flt.connect(g); g.connect(masterGain);
+    src.start(t); src.stop(t + dur + 0.01);
+}
+
+// Jump: springy "boing" — two detuned oscillators with fast pitch bend up
+function sfxJump() {
+    vib(8);
+    if (!audioCtx || !settings.sound) return;
+    const t = audioCtx.currentTime;
+    // Main spring tone
+    const o1 = audioCtx.createOscillator();
+    const g1 = audioCtx.createGain();
+    o1.type = 'sine';
+    o1.frequency.setValueAtTime(220, t);
+    o1.frequency.exponentialRampToValueAtTime(880, t + 0.06);
+    o1.frequency.exponentialRampToValueAtTime(660, t + 0.12);
+    g1.gain.setValueAtTime(0.18, t);
+    g1.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
+    o1.connect(g1); g1.connect(masterGain);
+    o1.start(t); o1.stop(t + 0.19);
+    // Harmonic overtone for brightness
+    const o2 = audioCtx.createOscillator();
+    const g2 = audioCtx.createGain();
+    o2.type = 'square';
+    o2.frequency.setValueAtTime(440, t);
+    o2.frequency.exponentialRampToValueAtTime(1320, t + 0.05);
+    g2.gain.setValueAtTime(0.04, t);
+    g2.gain.exponentialRampToValueAtTime(0.001, t + 0.1);
+    o2.connect(g2); g2.connect(masterGain);
+    o2.start(t); o2.stop(t + 0.11);
+    // Breathy whoosh
+    noiseBurst(0.08, 0.06, 3000, 'bandpass');
+}
+
+// Land: soft thud with filtered noise impact
+function sfxLand() {
+    vib(10);
+    if (!settings.sound || !audioCtx) return;
+    const t = audioCtx.currentTime;
+    // Low thud
     const o = audioCtx.createOscillator();
     const g = audioCtx.createGain();
     o.type = 'sine';
-    o.frequency.setValueAtTime(310, t);
-    o.frequency.exponentialRampToValueAtTime(560, t + 0.07);
-    o.frequency.exponentialRampToValueAtTime(430, t + 0.12);
-    g.gain.setValueAtTime(0.22, t);
-    g.gain.exponentialRampToValueAtTime(0.001, t + 0.14);
+    o.frequency.setValueAtTime(150, t);
+    o.frequency.exponentialRampToValueAtTime(60, t + 0.06);
+    g.gain.setValueAtTime(0.2, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.08);
     o.connect(g); g.connect(masterGain);
-    o.start(t); o.stop(t + 0.15);
-}
-function sfxLand() { vib(12); if (!settings.sound) return; tone(380, 'sine', 0.05, 0.18); }
-function sfxPerfect(s) { vib([12,30,12]); if (!settings.sound) return; const base = [520,580][Math.min(s-1,1)]; [1,1.25,1.5].forEach((r,i) => { tone(base*r, i===0?'sine':'triangle', 0.3+s*0.05, (0.22-i*0.04), i*0.04); }); }
-function sfxLife() { vib([15,30,15,30,25]); if (!settings.sound) return; [1,1.25,1.5,2].forEach((r,i) => { tone(640*r, i===0?'sine':'triangle', 0.6, (0.3-i*0.06), i*0.04); }); }
-function sfxWin() { vib([15,40,15,40,25]); if (!settings.sound) return; [520,660,780,1040].forEach((f,i) => { [1,1.5].forEach((r,j) => { tone(f*r, j===0?'sine':'triangle', 0.8, (0.25-j*0.05), i*0.12); }); }); }
-function sfxDie() { vib(120); if (!settings.sound) return; tone(390,'sine',0.22,0.28); tone(320,'triangle',0.22,0.26,0.18); tone(270,'sine',0.22,0.26,0.36); tone(210,'triangle',0.4,0.32,0.54); }
-function sfxLoseLife() { vib(60); if (!settings.sound) return; tone(510,'sine',0.15,0.26); tone(380,'triangle',0.2,0.24,0.12); }
-
-// ── Background Music (procedural) ──
-let musicNodes = null;
-let musicPlaying = false;
-
-function startMusic() {
-    if (musicPlaying || !audioCtx || !settings.music) return;
-    musicPlaying = true;
-    const t = audioCtx.currentTime;
-
-    const musicGain = audioCtx.createGain();
-    musicGain.gain.setValueAtTime(0, t);
-    musicGain.gain.linearRampToValueAtTime(1, t + 2);
-
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'lowpass';
-    filter.frequency.value = 800;
-    filter.Q.value = 0.7;
-    filter.connect(musicGain);
-    musicGain.connect(masterGain);
-
-    const oscs = [];
-    const gains = [];
-
-    // Bass drone — C2 (65Hz)
-    const bass = audioCtx.createOscillator();
-    const bassG = audioCtx.createGain();
-    bass.type = 'sine'; bass.frequency.value = 65;
-    bassG.gain.value = 0.06;
-    const bassLfo = audioCtx.createOscillator();
-    const bassLfoG = audioCtx.createGain();
-    bassLfo.type = 'sine'; bassLfo.frequency.value = 0.15;
-    bassLfoG.gain.value = 0.02;
-    bassLfo.connect(bassLfoG); bassLfoG.connect(bassG.gain);
-    bassLfo.start(t);
-    bass.connect(bassG); bassG.connect(filter);
-    bass.start(t);
-    oscs.push(bass, bassLfo); gains.push(bassG);
-
-    // Pad — C3 (130Hz)
-    const pad = audioCtx.createOscillator();
-    const padG = audioCtx.createGain();
-    pad.type = 'triangle'; pad.frequency.value = 130;
-    padG.gain.value = 0.03;
-    const padLfo = audioCtx.createOscillator();
-    const padLfoG = audioCtx.createGain();
-    padLfo.type = 'sine'; padLfo.frequency.value = 0.08;
-    padLfoG.gain.value = 5;
-    padLfo.connect(padLfoG); padLfoG.connect(pad.detune);
-    padLfo.start(t);
-    pad.connect(padG); padG.connect(filter);
-    pad.start(t);
-    oscs.push(pad, padLfo); gains.push(padG);
-
-    // Fifth — G3 (196Hz)
-    const fifth = audioCtx.createOscillator();
-    const fifthG = audioCtx.createGain();
-    fifth.type = 'sine'; fifth.frequency.value = 196;
-    fifthG.gain.value = 0.022;
-    fifth.connect(fifthG); fifthG.connect(filter);
-    fifth.start(t);
-    oscs.push(fifth); gains.push(fifthG);
-
-    // Shimmer — C5 (523Hz), volume increases with progression
-    const shimmer = audioCtx.createOscillator();
-    const shimmerG = audioCtx.createGain();
-    shimmer.type = 'sine'; shimmer.frequency.value = 523;
-    shimmerG.gain.value = 0.008;
-    const shimLfo = audioCtx.createOscillator();
-    const shimLfoG = audioCtx.createGain();
-    shimLfo.type = 'sine'; shimLfo.frequency.value = 0.25;
-    shimLfoG.gain.value = 0.006;
-    shimLfo.connect(shimLfoG); shimLfoG.connect(shimmerG.gain);
-    shimLfo.start(t);
-    shimmer.connect(shimmerG); shimmerG.connect(filter);
-    shimmer.start(t);
-    oscs.push(shimmer, shimLfo); gains.push(shimmerG);
-
-    musicNodes = { oscs, gains, master: musicGain, filter, shimmerG, bassG };
+    o.start(t); o.stop(t + 0.09);
+    // Impact noise
+    noiseBurst(0.04, 0.08, 800, 'lowpass');
 }
 
-function stopMusic() {
-    if (!musicNodes || !audioCtx) { musicPlaying = false; return; }
+// Perfect: crystalline chime with rising harmonics, pitch rises with streak
+function sfxPerfect(s) {
+    vib([8, 25, 8]);
+    if (!settings.sound || !audioCtx) return;
     const t = audioCtx.currentTime;
-    musicNodes.master.gain.setTargetAtTime(0, t, 0.3);
-    const nodes = musicNodes;
-    setTimeout(function() {
-        nodes.oscs.forEach(function(o) { try { o.stop(); o.disconnect(); } catch(_) {} });
-        nodes.gains.forEach(function(g) { try { g.disconnect(); } catch(_) {} });
-        try { nodes.filter.disconnect(); nodes.master.disconnect(); } catch(_) {}
-    }, 1500);
-    musicNodes = null;
-    musicPlaying = false;
+    const baseNote = 698 + s * 50; // F5 and rising
+    const harmonics = [1, 2, 3, 5];
+    harmonics.forEach(function(h, i) {
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = i === 0 ? 'sine' : 'triangle';
+        const freq = baseNote * h;
+        if (freq > 10000) return;
+        o.frequency.setValueAtTime(freq, t + i * 0.03);
+        o.frequency.exponentialRampToValueAtTime(freq * 1.01, t + i * 0.03 + 0.3);
+        const vol = (0.14 - i * 0.025) * (1 + s * 0.1);
+        g.gain.setValueAtTime(Math.max(0.01, vol), t + i * 0.03);
+        g.gain.exponentialRampToValueAtTime(0.001, t + i * 0.03 + 0.4 + s * 0.05);
+        o.connect(g); g.connect(masterGain);
+        o.start(t + i * 0.03); o.stop(t + i * 0.03 + 0.45 + s * 0.05);
+    });
+    // Shimmer noise
+    noiseBurst(0.12, 0.03, 6000, 'highpass');
 }
 
-function updateMusicIntensity() {
-    if (!musicNodes || !audioCtx) return;
-    const intensity = 1 - (remaining / TOTAL_JUMPS);
+// Life gain: warm bell with ascending arpeggio
+function sfxLife() {
+    vib([10, 30, 10, 30, 20]);
+    if (!settings.sound || !audioCtx) return;
     const t = audioCtx.currentTime;
-    musicNodes.filter.frequency.setTargetAtTime(800 + intensity * 1400, t, 0.5);
-    musicNodes.shimmerG.gain.setTargetAtTime(0.008 + intensity * 0.025, t, 0.5);
-    musicNodes.bassG.gain.setTargetAtTime(0.06 + intensity * 0.02, t, 0.5);
+    const notes = [523, 659, 784, 1047]; // C5 E5 G5 C6
+    notes.forEach(function(freq, i) {
+        const delay = i * 0.08;
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(freq, t + delay);
+        g.gain.setValueAtTime(0.16, t + delay);
+        g.gain.setValueAtTime(0.16, t + delay + 0.15);
+        g.gain.exponentialRampToValueAtTime(0.001, t + delay + 0.7);
+        o.connect(g); g.connect(masterGain);
+        o.start(t + delay); o.stop(t + delay + 0.71);
+        // Octave shimmer
+        const o2 = audioCtx.createOscillator();
+        const g2 = audioCtx.createGain();
+        o2.type = 'triangle';
+        o2.frequency.setValueAtTime(freq * 2, t + delay);
+        g2.gain.setValueAtTime(0.05, t + delay);
+        g2.gain.exponentialRampToValueAtTime(0.001, t + delay + 0.5);
+        o2.connect(g2); g2.connect(masterGain);
+        o2.start(t + delay); o2.stop(t + delay + 0.51);
+    });
+}
+
+// Win: triumphant fanfare with major chord stabs
+function sfxWin() {
+    vib([12, 40, 12, 40, 12, 40, 20]);
+    if (!settings.sound || !audioCtx) return;
+    const t = audioCtx.currentTime;
+    // Three chord stabs: C major, F major, C major (high)
+    const chords = [
+        { notes: [262, 330, 392], time: 0 },
+        { notes: [349, 440, 523], time: 0.25 },
+        { notes: [523, 659, 784, 1047], time: 0.5 },
+    ];
+    chords.forEach(function(chord) {
+        chord.notes.forEach(function(freq, i) {
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.type = i === 0 ? 'sawtooth' : 'triangle';
+            o.frequency.setValueAtTime(freq, t + chord.time);
+            const vol = i === 0 ? 0.1 : 0.08;
+            g.gain.setValueAtTime(vol, t + chord.time);
+            g.gain.setValueAtTime(vol * 0.9, t + chord.time + 0.15);
+            g.gain.exponentialRampToValueAtTime(0.001, t + chord.time + 0.6);
+            o.connect(g); g.connect(masterGain);
+            o.start(t + chord.time); o.stop(t + chord.time + 0.61);
+        });
+    });
+    // Sparkle tail
+    noiseBurst(0.3, 0.04, 8000, 'highpass');
+}
+
+// Game over: low rumble with descending dissonant tones
+function sfxDie() {
+    vib(100);
+    if (!settings.sound || !audioCtx) return;
+    const t = audioCtx.currentTime;
+    // Deep rumble
+    const o1 = audioCtx.createOscillator();
+    const g1 = audioCtx.createGain();
+    o1.type = 'sawtooth';
+    o1.frequency.setValueAtTime(80, t);
+    o1.frequency.exponentialRampToValueAtTime(30, t + 0.8);
+    g1.gain.setValueAtTime(0.12, t);
+    g1.gain.exponentialRampToValueAtTime(0.001, t + 0.9);
+    o1.connect(g1); g1.connect(masterGain);
+    o1.start(t); o1.stop(t + 0.91);
+    // Descending minor tones
+    [370, 311, 261, 196].forEach(function(freq, i) {
+        const delay = i * 0.15;
+        const o = audioCtx.createOscillator();
+        const g = audioCtx.createGain();
+        o.type = 'triangle';
+        o.frequency.setValueAtTime(freq, t + delay);
+        o.frequency.exponentialRampToValueAtTime(freq * 0.9, t + delay + 0.2);
+        g.gain.setValueAtTime(0.12 - i * 0.015, t + delay);
+        g.gain.exponentialRampToValueAtTime(0.001, t + delay + 0.3);
+        o.connect(g); g.connect(masterGain);
+        o.start(t + delay); o.stop(t + delay + 0.31);
+    });
+    // Crash noise
+    noiseBurst(0.5, 0.08, 1500, 'lowpass');
+}
+
+// Lose life: quick warning buzz
+function sfxLoseLife() {
+    vib(50);
+    if (!settings.sound || !audioCtx) return;
+    const t = audioCtx.currentTime;
+    // Buzzy warning tone
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'square';
+    o.frequency.setValueAtTime(280, t);
+    o.frequency.exponentialRampToValueAtTime(180, t + 0.15);
+    g.gain.setValueAtTime(0.08, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+    o.connect(g); g.connect(masterGain);
+    o.start(t); o.stop(t + 0.21);
+    // Second lower buzz
+    const o2 = audioCtx.createOscillator();
+    const g2 = audioCtx.createGain();
+    o2.type = 'sawtooth';
+    o2.frequency.setValueAtTime(200, t + 0.1);
+    o2.frequency.exponentialRampToValueAtTime(120, t + 0.25);
+    g2.gain.setValueAtTime(0.06, t + 0.1);
+    g2.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+    o2.connect(g2); g2.connect(masterGain);
+    o2.start(t + 0.1); o2.stop(t + 0.31);
 }
 
 // ── Utilities ──
@@ -684,7 +765,7 @@ function resize() {
             if (state === 'jumping' || state === 'falling') {
                 player.vx *= sr; player.vy *= sr;
             } else {
-                player.y = platforms[player.pi].y - THEME.char.h * S;
+                player.y = getY(platforms[player.pi]) - THEME.char.h * S;
             }
             cam.x *= sr; cam.start *= sr;
             setCamTarget();
@@ -705,7 +786,19 @@ function genPlat(prev, n) {
     const w = rand(d.pMin, d.pMax) * S;
     let y = prev.y + dy;
     y = clamp(y, H * 0.35, H * 0.72);
-    return { x: prev.x + prev.w + gap, y, w, yRatio: y / H };
+    // Platforms start bobbing after jump 10, amplitude and speed increase with difficulty
+    let bobAmp = 0, bobSpd = 0, bobOff = 0;
+    if (n > 10 && Math.random() < Math.min(0.7, (n - 10) / 40)) {
+        bobAmp = rand(8, 18 + (n - 10) * 0.4) * S;
+        bobSpd = rand(1.2, 2.5);
+        bobOff = Math.random() * Math.PI * 2;
+    }
+    return { x: prev.x + prev.w + gap, y, w, yRatio: y / H, bobAmp, bobSpd, bobOff };
+}
+
+function getY(p) {
+    if (!p.bobAmp) return p.y;
+    return p.y + Math.sin(gameTime * p.bobSpd + p.bobOff) * p.bobAmp;
 }
 
 function fillPlatforms(camX) {
@@ -744,12 +837,12 @@ function init() {
     fadeOutIdx = -1; lastTS = 0;
     missedJump = false;
     hudFade = 1; winOpen = false;
-    smileT = 0; wowT = 0; wowDir = 1; shakeT = 0; inputBuf = false;
+    smileT = 0; wowT = 0; wowDir = 1; shakeT = 0; inputBuf = false; gameTime = 0;
     floats = []; ringPulse = null;
     initParticles();
 
     const y0 = H * 0.6;
-    platforms = [{ x: 25 * S, y: y0, w: THEME.plat.startW * S, yRatio: y0 / H }];
+    platforms = [{ x: 25 * S, y: y0, w: THEME.plat.startW * S, yRatio: y0 / H, bobAmp: 0, bobSpd: 0, bobOff: 0 }];
     fillPlatforms(25 * S);
 
     const p0 = platforms[0];
@@ -771,6 +864,7 @@ let trailTimer = 0;
 function update(dt) {
     if (dt > 0.1) dt = 0.1;
 
+    gameTime += dt;
     updateParticles(dt);
 
     if (state === 'gameover') { if (hudFade > 0) hudFade = Math.max(0, hudFade - dt * 10); return; }
@@ -780,7 +874,13 @@ function update(dt) {
     if (shakeT > 0) shakeT = Math.max(0, shakeT - dt);
     if (smileT > 0 && smileT !== Infinity) smileT = Math.max(0, smileT - dt);
 
-    updateMusicIntensity();
+    // Follow bobbing platform when standing on it
+    if (state === 'idle' || state === 'charging' || state === 'panning' || state === 'landed') {
+        const cp = platforms[player.pi];
+        if (cp.bobAmp) {
+            player.y = getY(cp) - THEME.char.h * S;
+        }
+    }
 
     if (state === 'jumping' || state === 'falling') {
         // Emit trail particles
@@ -806,15 +906,16 @@ function update(dt) {
         if (state === 'jumping' && player.vy > 0) {
             // Land on current platform (short jump back)
             const cur = platforms[player.pi];
+            const curY = getY(cur);
             if (cx >= cur.x && cx <= cur.x + cur.w &&
-                prevBot <= cur.y + 2 * S && bot >= cur.y - 2 * S &&
-                bot <= cur.y + Math.max(Math.abs(player.vy * dt), 8 * S)) {
-                player.y = cur.y - ch;
+                prevBot <= curY + 2 * S && bot >= curY - 2 * S &&
+                bot <= curY + Math.max(Math.abs(player.vy * dt), 8 * S)) {
+                player.y = curY - ch;
                 player.vx = 0; player.vy = 0;
                 streak = 0;
                 if (smileT === Infinity) smileT = 0.15;
                 sfxLand();
-                emitDust(cx, cur.y);
+                emitDust(cx, curY);
                 state = inputBuf ? (inputBuf = false, power = 0, 'charging') : 'idle';
                 return;
             }
@@ -822,10 +923,11 @@ function update(dt) {
             const ni = player.pi + 1;
             if (ni < platforms.length) {
                 const np = platforms[ni];
+                const npY = getY(np);
                 const tol = Math.max(Math.abs(player.vy * dt), 8 * S);
                 if (cx >= np.x && cx <= np.x + np.w &&
-                    prevBot <= np.y + 2 * S && bot >= np.y - 2 * S &&
-                    bot <= np.y + tol) {
+                    prevBot <= npY + 2 * S && bot >= npY - 2 * S &&
+                    bot <= npY + tol) {
                     onLand(np, ni);
                     return;
                 }
@@ -872,8 +974,9 @@ function update(dt) {
 function onLand(plat, idx) {
     const ch = THEME.char.h * S;
     const cw = THEME.char.w * S;
+    const platY = getY(plat);
     fadeOutIdx = player.pi;
-    player.y = plat.y - ch;
+    player.y = platY - ch;
     player.vx = 0; player.vy = 0;
     player.pi = idx;
     firstPlay = false;
@@ -887,7 +990,7 @@ function onLand(plat, idx) {
     const isPerfect = Math.abs(cx - pcx) <= plat.w * PERFECT_ZONE / 2;
 
     // Always emit dust on landing
-    emitDust(cx, plat.y);
+    emitDust(cx, platY);
 
     if (isPerfect) {
         streak++;
@@ -895,13 +998,13 @@ function onLand(plat, idx) {
         const isLife = streak >= PERFECTS_FOR_LIFE;
         const pColor = isLife ? '#f59e0b' : THEME.ui.perfectColor;
         ringPulse = { x: cx, y: player.y + ch / 2, color: pColor, age: 0, dur: 0.45, maxR: 40 * S };
-        emitSparkle(cx, plat.y);
+        emitSparkle(cx, platY);
         if (isLife) {
             lives = Math.min(lives + 1, 9); streak = 0;
-            addFloat('+1 LIFE', cx, plat.y - 30 * S, '#f59e0b', 16, 1.0);
+            addFloat('+1 LIFE', cx, platY - 30 * S, '#f59e0b', 16, 1.0);
             sfxLife();
         } else {
-            addFloat('PERFECT!', cx, plat.y - 30 * S, THEME.ui.perfectColor, 16, 1.0);
+            addFloat('PERFECT!', cx, platY - 30 * S, THEME.ui.perfectColor, 16, 1.0);
             sfxPerfect(streak);
         }
     } else {
@@ -925,7 +1028,7 @@ function respawn() {
     const cw = THEME.char.w * S;
     const ch = THEME.char.h * S;
     player.x = p.x + p.w * 0.4 - cw / 2;
-    player.y = p.y - ch;
+    player.y = getY(p) - ch;
     player.vx = 0; player.vy = 0;
     state = 'idle'; power = 0; streak = 0;
     addFloat('-1 LIFE', player.x + cw / 2, player.y - 10 * S, THEME.ui.lifeColor, 16, 1.3);
@@ -1021,8 +1124,9 @@ function drawPlat(p) {
     const sx = p.x - cam.x;
     if (sx + p.w < -30 || sx > W + 30) return;
     const h = THEME.plat.height * S;
+    const py = getY(p);
     ctx.fillStyle = THEME.plat.color;
-    ctx.beginPath(); rr(ctx, sx, p.y, p.w, h, 3.5 * S); ctx.fill();
+    ctx.beginPath(); rr(ctx, sx, py, p.w, h, 3.5 * S); ctx.fill();
 }
 
 function drawChar() {
@@ -1246,10 +1350,8 @@ function showWin() {
 }
 
 function restart() {
-    if (musicPlaying) { stopMusic(); }
     init();
     lastTS = 0;
-    if (audioCtx && settings.music) startMusic();
 }
 
 // ── Input ──
@@ -1320,7 +1422,6 @@ window.addEventListener('orientationchange', function() { setTimeout(resize, 100
 // ── Settings UI ──
 var settingsOverlay = document.getElementById('settings-overlay');
 var togSound = document.getElementById('tog-sound');
-var togMusic = document.getElementById('tog-music');
 var togVib = document.getElementById('tog-vib');
 var togDark = document.getElementById('tog-dark');
 var volSlider = document.getElementById('vol-slider');
@@ -1328,11 +1429,10 @@ var volRow = document.getElementById('vol-row');
 
 function syncToggles() {
     togSound.classList.toggle('on', settings.sound);
-    togMusic.classList.toggle('on', settings.music);
     togVib.classList.toggle('on', settings.vibration);
     togDark.classList.toggle('on', settings.darkMode);
     volSlider.value = Math.round(settings.volume * 100);
-    volRow.style.display = (settings.sound || settings.music) ? 'flex' : 'none';
+    volRow.style.display = settings.sound ? 'flex' : 'none';
 }
 syncToggles();
 
@@ -1362,14 +1462,6 @@ settingsHandler(togSound, function() {
     settings.sound = !settings.sound;
     syncToggles();
     saveSettings();
-});
-
-settingsHandler(togMusic, function() {
-    settings.music = !settings.music;
-    syncToggles();
-    saveSettings();
-    if (settings.music && audioCtx && !musicPlaying) { initAudio(); startMusic(); }
-    if (!settings.music && musicPlaying) stopMusic();
 });
 
 settingsHandler(togVib, function() {
