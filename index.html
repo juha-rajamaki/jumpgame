@@ -66,7 +66,7 @@ canvas { display: block; width: 100%; height: 100%; }
     width: 64px; height: 64px;
     margin: -48px auto 10px;
 }
-.avatar svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 10px rgba(232,93,58,0.3)); }
+.avatar svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 10px rgba(34,197,94,0.3)); }
 .detail {
     font-size: 13px; color: #9AA8BD;
     margin-bottom: 18px !important; line-height: 1.4;
@@ -208,12 +208,12 @@ body.dark { background: #0f172a; }
         <div class="card">
             <div class="avatar" id="modal-avatar">
                 <svg viewBox="0 0 60 60">
-                    <rect width="60" height="60" rx="12" fill="#e85d3a"/>
+                    <rect width="60" height="60" rx="12" fill="#22c55e"/>
                     <circle cx="18" cy="25" r="8" fill="#fff"/>
                     <circle cx="42" cy="25" r="8" fill="#fff"/>
-                    <circle id="av-pupil-l" cx="18" cy="25" r="4" fill="#6b2010"/>
-                    <circle id="av-pupil-r" cx="42" cy="25" r="4" fill="#6b2010"/>
-                    <path id="av-mouth" d="M22 42 Q30 42 38 42" stroke="#6b2010" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                    <circle id="av-pupil-l" cx="18" cy="25" r="4" fill="#14532d"/>
+                    <circle id="av-pupil-r" cx="42" cy="25" r="4" fill="#14532d"/>
+                    <path id="av-mouth" d="M22 42 Q30 42 38 42" stroke="#14532d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
                 </svg>
             </div>
             <h2 id="mt"></h2>
@@ -233,7 +233,7 @@ body.dark { background: #0f172a; }
 const THEME_LIGHT = {
     bg: '#E8F0FE',
     bgGrad: ['#E8F0FE', '#d0dff5'],
-    char: { w: 26, h: 26, color: '#e85d3a', eyeWhite: '#fff', pupil: '#6b2010' },
+    char: { w: 26, h: 26, color: '#22c55e', eyeWhite: '#fff', pupil: '#14532d' },
     plat: { height: 7, color: '#8B9CB6', startW: 110 },
     scene: {
         mountain1: 'rgba(180,195,220,0.4)',
@@ -253,7 +253,7 @@ const THEME_LIGHT = {
 const THEME_DARK = {
     bg: '#0f172a',
     bgGrad: ['#0f172a', '#1a2744'],
-    char: { w: 26, h: 26, color: '#f4845f', eyeWhite: '#e2e8f0', pupil: '#4a1a08' },
+    char: { w: 26, h: 26, color: '#4ade80', eyeWhite: '#e2e8f0', pupil: '#14532d' },
     plat: { height: 7, color: '#475569', startW: 110 },
     scene: {
         mountain1: 'rgba(30,50,80,0.5)',
