@@ -370,6 +370,7 @@ let completed, firstPlay, floats, ringPulse, lastTS, fadeOutIdx;
 let missedJump, smileT, wowT, wowDir, shakeT, inputBuf;
 let hudFade, winOpen, attempts;
 let settingsOpen = false;
+let powerDir = 1; // 1 = charging up, -1 = charging down
 let gameTime = 0;
 
 // ── Particles ──
@@ -870,7 +871,11 @@ function update(dt) {
 
     if (state === 'gameover') { if (hudFade > 0) hudFade = Math.max(0, hudFade - dt * 10); return; }
 
-    if (state === 'charging') power = Math.min(1, power + dt / PHYSICS.chargeTime);
+    if (state === 'charging') {
+        power += powerDir * dt / PHYSICS.chargeTime;
+        if (power >= 1) { power = 1; powerDir = -1; }
+        else if (power <= PHYSICS.minPower) { power = PHYSICS.minPower; powerDir = 1; }
+    }
     if (wowT > 0) wowT = Math.max(0, wowT - dt);
     if (shakeT > 0) shakeT = Math.max(0, shakeT - dt);
     if (smileT > 0 && smileT !== Infinity) smileT = Math.max(0, smileT - dt);
@@ -917,7 +922,7 @@ function update(dt) {
                 if (smileT === Infinity) smileT = 0.15;
                 sfxLand();
                 emitDust(cx, curY);
-                state = inputBuf ? (inputBuf = false, power = 0, 'charging') : 'idle';
+                state = inputBuf ? (inputBuf = false, power = 0, powerDir = 1, 'charging') : 'idle';
                 return;
             }
             // Land on next platform
@@ -1020,7 +1025,7 @@ function onLand(plat, idx) {
     if (completed) { showWin(); }
     fillPlatforms(plat.x);
     startPan();
-    if (inputBuf) { state = 'charging'; power = 0; inputBuf = false; }
+    if (inputBuf) { state = 'charging'; power = 0; powerDir = 1; inputBuf = false; }
     else { state = 'panning'; }
 }
 
@@ -1364,7 +1369,7 @@ function onDown(e) {
     if (modal.classList.contains('show')) return;
     if (state === 'idle' || state === 'panning' || state === 'landed') {
         if (state === 'landed') startPan();
-        state = 'charging'; power = 0;
+        state = 'charging'; power = 0; powerDir = 1;
     } else if (state === 'jumping') {
         inputBuf = true;
     }
